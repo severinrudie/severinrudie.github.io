@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>title</title>
+  <link rel="stylesheet" href="stylesheet.css" type="text/css">
+</head>
+<body>
+    <nav id='nav' >
+        <button class='all'>All</button>
+        <button class='Access'>Access Tunnels</button>
+        <button class='Atmo'>Atmo</button>
+        <button class='away-room'>Away Room</button>
+        <button class='backup-atmo'>Backup Atmo</button>
+        <button class='Bridge'>Bridge</button>
+        <button class='Coolant'>Coolant</button>
+        <button class='cryo-support'>Cryo Support</button>
+        <button class='Cryo'>Cryo</button>
+        <button class='docking-arm'>Docking Arm</button>
+        <button class='Elevator'>Elevators</button>
+        <button class='Engine'>Engines</button>
+        <button class='ext-comm'>External Comms</button>
+        <button class='fuel-injector'>Fuel Injector</button>
+        <button class='Fuel'>Fuel</button>
+        <button class='Galley'>Galley</button>
+        <button class='int-comm'>Internal Comms</button>
+        <button class='Mother'>Mother</button>
+        <button class='o2-reserve'>O2 Reserve</button>
+        <button class='o2-scrubbers'>O2 Scrubbers</button>
+        <button class='Quarters'>Quarters</button>
+        <button class='shuttle-bay'>Shuttle Bay</button>
+        <button class='shuttle-maint'>Shuttle Maintenance</button>
+    </nav>
+
+    <div id='image-wrapper'>
+        <img src='images/main.png'/>
+        <img class='Access' hidden />
+        <img class='Atmo' hidden />
+        <img class='away-room' hidden />
+        <img class='backup-atmo' hidden />
+        <img class='Bridge' hidden />
+        <img class='Coolant' hidden />
+        <img class='cryo-support' hidden />
+        <img class='Cryo' hidden />
+        <img class='docking-arm' hidden />
+        <img class='Elevator' hidden />
+        <img class='Engine' hidden />
+        <img class='ext-comm' hidden />
+        <img class='fuel-injector' hidden />
+        <img class='Fuel' hidden />
+        <img class='Galley' hidden />
+        <img class='int-comm' hidden />
+        <img class='Mother' hidden />
+        <img class='o2-reserve' hidden />
+        <img class='o2-scrubbers' hidden />
+        <img class='Quarters' hidden />
+        <img class='shuttle-bay' hidden />
+        <img class='shuttle-maint' hidden />
+    </div>
+
+  <script type="text/javascript">
+   function autorun()
+   {
+    const imgWrapper = document.getElementById('image-wrapper');
+    const navWrapper = document.getElementById('nav');
+
+    [...imgWrapper.children]
+        .filter(img => !!img.className)
+        .forEach(img => img.src = `images/${img.className}.png`)
+
+    const nav = document.getElementById('nav')
+
+    nav.addEventListener('click', (event) => {
+        const clazz = event.target.className;
+
+        if (clazz === 'all') {
+            const images = [...imgWrapper.children]
+                .filter(img => !!img.className)
+            const anyVisible = images.some(img => !img.hidden)
+            const buttons = [...navWrapper.children]
+            
+            if (anyVisible) {
+                images.forEach(img => img.hidden = true);
+                buttons.forEach(button => button.style['background-color'] = '');
+            } else {
+                images.forEach(img => img.removeAttribute('hidden'));
+                buttons.forEach(button => button.style['background-color'] = 'grey');
+            }
+
+            return
+        }
+
+        const img = imgWrapper.getElementsByClassName(clazz)[0]
+        if (img.hidden) {
+            event.target.style['background-color'] = 'grey'
+            img.removeAttribute('hidden');
+        } else {
+            event.target.style['background-color'] = ''
+            img.hidden = true;
+        }
+    })
+   }
+   if (window.addEventListener) window.addEventListener("load", autorun, false);
+   else if (window.attachEvent) window.attachEvent("onload", autorun);
+   else window.onload = autorun;
+  </script>
+</body>
+</html>
